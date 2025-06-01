@@ -38,3 +38,11 @@ enable_http2=false
 # if you use HTTP/2 or TLS, you need to prepare certificates and private keys
 # tls_cert_file="cert.pem"
 # tls_key_file="privkey.pem"
+
+# CORS settings
+# Enable or disable CORS support
+enable_cors=false
+
+# CORS allowed origins (comma separated, e.g. "https://a.com,https://b.com").
+# Leave empty or set to "*" to allow all origins.
+allowed_origins="*"

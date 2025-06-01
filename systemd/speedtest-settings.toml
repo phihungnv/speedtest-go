@@ -29,3 +29,11 @@ database_password=""
 
 # if you use `bolt` as database, set database_file to database file location
 database_file="/usr/local/var/speedtest/speedtest.db"
+
+# CORS settings
+# Enable or disable CORS support
+enable_cors=false
+
+# CORS allowed origins (comma separated, e.g. "https://a.com,https://b.com").
+# Leave empty or set to "*" to allow all origins.
+allowed_origins="*"

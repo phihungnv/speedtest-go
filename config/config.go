@@ -31,6 +31,9 @@ type Config struct {
 	EnableTLS   bool   `mapstructure:"enable_tls"`
 	TLSCertFile string `mapstructure:"tls_cert_file"`
 	TLSKeyFile  string `mapstructure:"tls_key_file"`
+
+	EnableCors     bool   `mapstructure:"enable_cors"`
+	AllowedOrigins string `mapstructure:"allowed_origins"`
 }
 
 var (
@@ -45,6 +48,7 @@ func init() {
 	viper.SetDefault("download_chunks", 4)
 	viper.SetDefault("distance_unit", "K")
 	viper.SetDefault("enable_cors", false)
+	viper.SetDefault("allowed_origins", "*")
 	viper.SetDefault("statistics_password", "PASSWORD")
 	viper.SetDefault("redact_ip_addresses", false)
 	viper.SetDefault("database_type", "postgresql")

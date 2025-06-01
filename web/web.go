@@ -42,13 +42,29 @@ func ListenAndServe(conf *config.Config) error {
 	r.Use(middleware.RealIP)
 	r.Use(middleware.GetHead)
 
-	cs := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"GET", "POST", "OPTIONS", "HEAD"},
-		AllowedHeaders: []string{"*"},
-	})
-
-	r.Use(cs.Handler)
+	if conf.EnableCors {
+		allowedOrigins := []string{"*"}
+		if conf.AllowedOrigins != "" && conf.AllowedOrigins != "*" {
+			allowedOrigins = strings.Split(conf.AllowedOrigins, ",")
+			for i := range allowedOrigins {
+				allowedOrigins[i] = strings.TrimSpace(allowedOrigins[i])
+			}
+		}
+		cs := cors.New(cors.Options{
+			AllowedOrigins: allowedOrigins,
+			AllowedMethods: []string{"GET", "POST", "OPTIONS", "HEAD"},
+			AllowedHeaders: []string{"*"},
+		})
+		r.Use(cs.Handler)
+	} else {
+		cs := cors.New(cors.Options{
+			AllowedOrigins: []string{"*"},
+			AllowedMethods: []string{"GET", "POST", "OPTIONS", "HEAD"},
+			AllowedHeaders: []string{"*"},
+		})
+		r.Use(cs.Handler)
+	}
+	
 	r.Use(middleware.NoCache)
 	r.Use(middleware.Recoverer)
 
